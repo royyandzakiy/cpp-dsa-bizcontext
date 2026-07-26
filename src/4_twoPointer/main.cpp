@@ -8,13 +8,15 @@
  * Based on: Valid Palindrome (two-pointer approach, ignoring non-alphanumeric)
  */
 
+#include <algorithm>
 #include <cctype>
 #include <cstddef>
 #include <fmt/base.h>
+#include <ranges>
 #include <string>
 #include <string_view>
 
-auto isLogEntrySymmetric(std::string_view secureLogEntry) -> bool {
+auto isLogEntrySymmetricOld(std::string_view secureLogEntry) -> bool {
 	size_t leftIdx = 0;
 	size_t rightIdx = secureLogEntry.size() - 1;
 
@@ -33,6 +35,14 @@ auto isLogEntrySymmetric(std::string_view secureLogEntry) -> bool {
 	}
 
 	return true; // everything matches
+}
+
+auto isLogEntrySymmetric(std::string_view secureLogEntry) -> bool {
+	auto filtered = secureLogEntry | std::ranges::views::filter(::isalnum) | std::ranges::views::filter(::tolower);
+
+	auto reversed = filtered | std::ranges::views::reverse;
+
+	return std::ranges::equal(filtered, reversed);
 }
 
 auto main() -> int {
