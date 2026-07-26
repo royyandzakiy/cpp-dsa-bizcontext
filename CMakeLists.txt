@@ -63,10 +63,11 @@ find_package(fmt CONFIG REQUIRED)
 #=========================
 # Targets
 #=========================
-add_subdirectory(src/twoSum)
-add_subdirectory(src/containsDuplicate)
-add_subdirectory(src/anagram)
-add_subdirectory(src/twoPointer)
+add_subdirectory(src/1_twoSum)
+add_subdirectory(src/2_containsDuplicate)
+add_subdirectory(src/3_anagram)
+add_subdirectory(src/4_twoPointer)
+add_subdirectory(src/5_binaryTreeDepth)
 
 #=========================
 # Tests & Coverage
