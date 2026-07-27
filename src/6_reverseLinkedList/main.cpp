@@ -34,6 +34,7 @@ auto reverseHistoryList(std::unique_ptr<HistoryItem> historyListHead) -> std::un
 		// SWAP: change historyListHead->nextItem to the previously stored tempPrev
 		tempCurr->nextItem = std::move(tempPrev);
 
+		// --- for next iteration use ---
 		// temporarily store current in tempPrev
 		tempPrev = std::move(tempCurr);
 
@@ -44,7 +45,48 @@ auto reverseHistoryList(std::unique_ptr<HistoryItem> historyListHead) -> std::un
 	return std::move(tempPrev);
 }
 
+auto printHistoryList(const std::unique_ptr<HistoryItem> &head) {
+	const HistoryItem *myNode = head.get();
+	while (myNode) {
+		fmt::print("{} -> ", myNode->action);
+		myNode = myNode->nextItem.get();
+	}
+	fmt::println("nullptr");
+}
+
 auto main() -> int {
+	// Example 1: Simple action history
+	fmt::println("-------- Example 1 --------");
+	auto head = std::make_unique<HistoryItem>("type A");
+	head->nextItem = std::make_unique<HistoryItem>("type B");
+	head->nextItem->nextItem = std::make_unique<HistoryItem>("type C");
+	// Original: A → B → C
+	// After reverse: C → B → A
+	printHistoryList(head);
+	printHistoryList(reverseHistoryList(std::move(head)));
+
+	// Example 2: Single action
+	fmt::println("-------- Example 2 --------");
+	auto head2 = std::make_unique<HistoryItem>("delete");
+	// After reverse: delete (unchanged)
+	printHistoryList(head2);
+	printHistoryList(reverseHistoryList(std::move(head2)));
+
+	// Example 3: Empty history
+	fmt::println("-------- Example 3 --------");
+	auto head3 = nullptr;
+	// Returns: nullptr (empty history)
+	printHistoryList(head3);
+	printHistoryList(reverseHistoryList(std::move(head3)));
+
+	// Example 4: Two actions
+	fmt::println("-------- Example 4 --------");
+	auto head4 = std::make_unique<HistoryItem>("copy");
+	head4->nextItem = std::make_unique<HistoryItem>("paste");
+	// Original: copy → paste
+	// After reverse: paste → copy
+	printHistoryList(head4);
+	printHistoryList(reverseHistoryList(std::move(head4)));
 
 	return 0;
 }

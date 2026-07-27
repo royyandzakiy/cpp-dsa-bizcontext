@@ -1,4 +1,4 @@
-set(MY_PROJECT_NAME binaryTreeDepth)
+set(MY_PROJECT_NAME reverseLinkedList)
 add_executable(${MY_PROJECT_NAME})
 
 file(GLOB SOURCES *.cpp)

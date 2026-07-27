@@ -68,6 +68,7 @@ add_subdirectory(src/2_containsDuplicate)
 add_subdirectory(src/3_anagram)
 add_subdirectory(src/4_twoPointer)
 add_subdirectory(src/5_binaryTreeDepth)
+add_subdirectory(src/6_reverseLinkedList)
 
 #=========================
 # Tests & Coverage
